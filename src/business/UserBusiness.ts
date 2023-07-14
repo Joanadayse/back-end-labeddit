@@ -9,6 +9,7 @@ import { BaseError } from "../errors/BaseError";
 import { LoginInputDTO, LoginOutputDTO } from "../dtos/users/login.dto";
 import { NotFoundError } from "../errors/NotFountError";
 import { BadRequestError } from "../errors/BadRequestError";
+import { GetCommentsInputDTO, GetCommentsOutputDTO } from "../dtos/posts/getComments.dto";
 
 export class UserBussiness{
     constructor(
@@ -32,7 +33,7 @@ export class UserBussiness{
             name,
             email,
             hashedPassword,
-            USER_ROLES.ADMIN,
+            USER_ROLES.NORMAL,
             new Date().toISOString()
 
         ) 
@@ -97,6 +98,9 @@ export class UserBussiness{
     return output
 
     }
+
+
+
 
   
 

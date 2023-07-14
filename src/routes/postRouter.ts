@@ -19,4 +19,7 @@ const postController= new PostController(
 )
 
 postRouter.post("/",postController.createPost)
-// userRouter.post("/login",userController.login)
+postRouter.get("/",postController.getPost )
+postRouter.post("/:id/comments", postController.addComments);
+postRouter.put("/:id", postController.editPost);
+postRouter.delete("/:id", postController.deletPost);

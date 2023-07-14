@@ -40,5 +40,34 @@ CREATE TABLE likes_dislikes(
     ON DELETE CASCADE
 );
 
+CREATE TABLE posts_comments(
+        user_id TEXT NOT NULL,
+        post_id TEXT NOT NULL,
+        deslikes INT NOT NULL DEFAULT 0,
+        comments  TEXT PRIMARY KEY NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        FOREIGN KEY (post_id) REFERENCES post(id)
+    );
+
+    DROP TABLE posts_comments;
+
+
+    SELECT * FROM posts_comments;
+
+    INSERT INTO posts_comments (user_id, post_id, deslikes, comments) VALUES
+    ("96397cc2-6ae2-4def-98d6-6abdb1ca2f64","8d9f11f5-4cdb-4247-a923-e574286d3da3", 0, "curti seu post");
+
+CREATE TABLE
+    likes_dislikes_comments(
+        user_id INT NOT NULL,
+        comments TEXT NOT NULL,
+        "like" INT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        FOREIGN KEY (comments) REFERENCES posts_comments(comments)
+    );
+
+    SELECT * FROM post
+     INNER JOIN posts_comments on post.id= posts_comments.post_id; 
+
 
 
