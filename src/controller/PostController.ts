@@ -8,6 +8,7 @@ import { PostCommentSchema } from "../dtos/posts/createPostComents.dto";
 import { GetCommentsScherma } from "../dtos/posts/getComments.dto";
 import { EditPostScherma } from "../dtos/posts/editPost.dto";
 import { DeletePostScherma } from "../dtos/posts/deletePost.dto";
+import { likeOrDislikePostsScherma } from "../dtos/posts/likeOrDislikePosts.dto";
 
 export class PostController{
     constructor(
@@ -148,6 +149,31 @@ export class PostController{
         console.log(input)
   
         const output = await this.postBusiness.deletPost(input);
+  
+        res.status(200).send(output);
+      } catch(error){
+        console.log(error)
+
+        if (error instanceof ZodError) {
+          res.status(400).send(error.issues)
+        } else if (error instanceof BaseError) {
+          res.status(error.statusCode).send(error.message)
+        } else {
+          res.status(500).send("Erro inesperado")
+        }
+    }
+    }
+    public likeOrDislike= async (req:Request, res:Response)=>{
+      try {
+        const input = likeOrDislikePostsScherma.parse({
+          token: req.headers.authorization,
+          postId: req.params.id,
+          like:req.body.like
+        })
+
+        console.log(input)
+  
+        const output = await this.postBusiness.likeOrDislike(input);
   
         res.status(200).send(output);
       } catch(error){
