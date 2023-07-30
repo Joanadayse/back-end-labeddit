@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import { userRouter } from './routes/userRouter'
 import { postRouter } from './routes/postRouter'
+import { likeDislikeRouter } from './routes/LikeDislikeRouter'
 
 dotenv.config()
 
@@ -17,6 +18,7 @@ app.listen(Number(process.env.PORT || 3003), () => {
 
 app.use("/users", userRouter)
 app.use("/posts", postRouter)
+app.use("/posts", likeDislikeRouter)
 
 app.get("/ping", (req,res)=>{
     res.send("Pong!")

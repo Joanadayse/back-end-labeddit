@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
-import { TokenPayload } from '../models/User'
+import { TokenPayload } from '../types'
+
 
 dotenv.config()
 

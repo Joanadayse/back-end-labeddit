@@ -1,69 +1,87 @@
-import { Request, Response } from "express";
-import { UserBussiness } from "../business/UserBusiness";
-import { ZodError} from "zod"
-import { inspect } from "util";
-import { BadRequestError } from "../errors/BadRequestError";
-import { BaseError } from "../errors/BaseError";
-import { SignupSchema } from "../dtos/users/signup.dto";
-import { LoginSchema } from "../dtos/users/login.dto";
+import { Request, Response } from "express"
+import { GetUsersInput } from "../dtos/users/user.dto"
+import { SignupInputDTO } from "../dtos/users/signup.dto"
+import { LoginInputDTO } from "../dtos/users/login.dto"
+import {UserBusiness} from "../business/UserBusiness"
 
-export class UserController{
+
+export class UserController {
     constructor(
-        private userBusiness: UserBussiness
-    ){}
+        private userBusiness: UserBusiness
+    ) {}
 
- public signup = async( req: Request , res: Response)=>{
-    try{
-        const input = SignupSchema.parse({
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password         
-        })
+    public getUsers = async (req: Request, res: Response) => {
+        try {
+            const input: GetUsersInput = {
+                q: req.query.q as string
+            }
 
-        console.log(input)
-
-        const output = await this.userBusiness.signup(input)
-
-        res.status(201).send(output)
-
-    }catch(error){
-        console.log(error)
-        if(error instanceof ZodError){
-            res.status(400).send(error.issues)
-        }else if (error instanceof BaseError){
-            res.status(error.statusCode).send(error.message)
-        }else{
-            res.status(500).send("error inesperado")
+            const output = await this.userBusiness.getUsers(input)
+    
+            res.status(200).send(output)
+        } catch (error) {
+            console.log(error)
+    
+            if (req.statusCode === 200) {
+                res.status(500)
+            }
+    
+            if (error instanceof Error) {
+                res.send(error.message)
+            } else {
+                res.send("Erro inesperado")
+            }
         }
     }
- }
 
- 
- public login = async (req: Request , res: Response)=>{
-    try{
-
-        const input= LoginSchema.parse({
-            email: req.body.email,
-            password: req.body.password
-        })
-
-        const output = await this.userBusiness.login(input)
-        res.status(200).send(output)
-
-    }catch(error){
-        console.log(error)
-
-        if (error instanceof ZodError){
-            res.status(400).send(error.issues)
-        }else if( error instanceof BaseError){
-            res.status(error.statusCode).send(error.message)
-        } else{
-            res.status(500).send("erro inesperado")
+    public signup = async (req: Request, res: Response) => {
+        try {
+            const input: SignupInputDTO = {
+                name: req.body.name,
+                email: req.body.email,
+                password: req.body.password
+            }
+            
+            const output = await this.userBusiness.signup(input)
+    
+            res.status(201).send(output)
+        } catch (error) {
+            console.log(error)
+    
+            if (req.statusCode === 200) {
+                res.status(500)
+            }
+    
+            if (error instanceof Error) {
+                res.send(error.message)
+            } else {
+                res.send("Erro inesperado")
+            }
         }
-
     }
-}
 
+    public login = async (req: Request, res: Response) => {
+        try {
+            const input: LoginInputDTO = {
+                email: req.body.email,
+                password: req.body.password
+            }
 
-
+            const output = await this.userBusiness.login(input)
+    
+            res.status(200).send(output)
+        } catch (error) {
+            console.log(error)
+    
+            if (req.statusCode === 200) {
+                res.status(500)
+            }
+    
+            if (error instanceof Error) {
+                res.send(error.message)
+            } else {
+                res.send("Erro inesperado")
+            }
+        }
+    }
 }

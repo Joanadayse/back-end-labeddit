@@ -1,15 +1,15 @@
 import express from "express"
-import { UserBussiness } from "../business/UserBusiness"
+import { UserController } from "../controller/UserController"
 import { UserDatabase } from "../database/UserDatabase"
-import { IdGenerator } from "../services/idGenerator"
 import { TokenManager } from "../services/TokenManager"
 import { HashManager } from "../services/HashManager"
-import { UserController } from "../controller/UserController"
+import { IdGenerator } from "../services/idGenerator"
+import { UserBusiness } from "../business/UserBusiness"
 
-export const userRouter= express.Router()
+export const userRouter = express.Router()
 
-const userController= new UserController(
-    new UserBussiness(
+const userController = new UserController(
+    new UserBusiness(
         new UserDatabase(),
         new IdGenerator(),
         new TokenManager(),
@@ -17,5 +17,6 @@ const userController= new UserController(
     )
 )
 
-userRouter.post("/signup",userController.signup)
-userRouter.post("/login",userController.login)
+userRouter.get("/", userController.getUsers)
+userRouter.post("/signup", userController.signup)
+userRouter.post("/login", userController.login)
