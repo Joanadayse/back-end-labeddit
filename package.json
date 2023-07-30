@@ -4,11 +4,10 @@
   "description": "<h1 align=\"center\"> Back-end Labeddit </h1>",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node build/index.js",
-    "build": "tsc",
-    "dev": "ts-node-dev src/index.ts",
-    "test": "jest"
-  },
+		"start": "node ./build/index.js",
+		"build": "tsc",
+		"dev": "ts-node-dev ./src/index.ts"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Joanadayse/back-end-labeddit.git"
