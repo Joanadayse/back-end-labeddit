@@ -10,6 +10,12 @@ Repositorio Back-end do Projeto Labeddit , nesse projeto iremos abordar todos os
 * <b>Funcionalidade 2</b>:Cobertura de testes;
 * <b>Funcionalidade 3</b>: API deployada;
 * <b>Funcionalidade 4</b>: Documentação;
+  
+## Links
+* [Repositorio Front ](https://github.com/Joanadayse/front-end-labeddit)
+* [Deploy](https://labeddit-jd.onrender.com)
+* [Api](https://documenter.getpostman.com/view/24823163/2s9XxtxurZ)
+
 
 ## 🛠 Tecnologias utilizadas
 * [React](https://pt-br.reactjs.org/)
